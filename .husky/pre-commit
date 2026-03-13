@@ -6,6 +6,7 @@ bun run lint-staged
 
 # Build and auto-stage dist/ if it changed
 bun run build
-if ! git diff --quiet dist/; then
+dist_status="$(git status --porcelain --untracked-files=all dist/)"
+if [ -n "$dist_status" ]; then
   git add -A dist/
 fi
